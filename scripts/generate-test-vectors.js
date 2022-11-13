@@ -7,7 +7,7 @@ const path = require('path');
 
 const keyPairToJwk = (publicKey, privateKey)=>{
   const jwk = {
-    kty: 'Kyber',
+    kty: 'LWE',
     alg: 'Kyber-1024',
     x: base64url.encode(Buffer.from(publicKey))
   }
