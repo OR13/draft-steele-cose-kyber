@@ -1,0 +1,440 @@
+
+
+
+
+CBOR Object Signing and Encryption                             O. Steele
+Internet-Draft                                                 Transmute
+Intended status: Informational                          13 November 2022
+Expires: 17 May 2023
+
+
+                               COSE Kyber
+                     draft-steele-cose-kyber-latest
+
+Abstract
+
+   This specification defines how to represent cryptographic keys for
+   Kyber, an IND-CCA2-secure key encapsulation mechanism (KEM), for use
+   with the key representation formats of JSON Web Key (JWK) and COSE
+   (COSE_Key).
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-steele-cose-kyber/.
+
+   Discussion of this document takes place on the cose Working Group
+   mailing list (mailto:cose@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/cose/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/cose/.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 17 May 2023.
+
+Copyright Notice
+
+   Copyright (c) 2022 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+     2.1.  Representation Definition
+       2.1.1.  JSON Web Key Representation
+       2.1.2.  Lattice Parameter Registration
+   3.  Security Considerations
+   4.  Test Vectors
+     4.1.  OKP Kyber-1024
+       4.1.1.  publicKeyJwk
+       4.1.2.  privateKeyJwk
+       4.1.3.  cyphertext
+       4.1.4.  secret
+   5.  IANA Considerations
+     5.1.  JSON Web Key Lattice Registry
+       5.1.1.  Registration Template
+       5.1.2.  Initial Registry Contents
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   TODO Introduction
+
+   For additional details regarding kyber see pq-crystals.org/kyber
+   (https://pq-crystals.org/kyber/).
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.1.  Representation Definition
+
+   The following definitions apply to the lattice based key
+   encapsulation mechanism known as Kyber.
+
+2.1.1.  JSON Web Key Representation
+
+   When expressing a cryptographic key for these lattices in JSON Web
+   Key (JWK) form, the following rules apply:
+
+   *  The parameter "kty" MUST be present and set to "OKP".
+
+   *  The parameter "lat" MUST be present and value MUST be one defined
+      in (#lattice-parameter-registration).
+
+   *  The parameter "x" MUST be present whose value represents the
+      public key.  This value MUST be encoded using the serialization
+      defined in [I-D.draft-cfrg-schwabe-kyber] Appendix C and MUST be
+      base64url encoded without padding as defined in [RFC7515]
+      Appendix C.
+
+   *  The parameter "d" MUST be present for private key representations
+      whose value MUST contain the little-endian representation of the
+      private key base64url encoded without padding as defined in
+      [RFC7515] Appendix C.  This parameter MUST NOT be present for
+      public keys.
+
+2.1.2.  Lattice Parameter Registration
+
+                           +=====+============+
+                           | kty | lat        |
+                           +=====+============+
+                           | OKP | Kyber-1024 |
+                           +-----+------------+
+                           | OKP | Kyber-768  |
+                           +-----+------------+
+                           | OKP | Kyber-512  |
+                           +-----+------------+
+
+                                 Table 1
+
+3.  Security Considerations
+
+   TODO Security
+
+4.  Test Vectors
+
+   TODO Test Vectors
+
+4.1.  OKP Kyber-1024
+
+4.1.1.  publicKeyJwk
+
+   { "kty": "OKP", "lat": "Kyber-1024", "x": "b4AVk7DIDNlgpquGZJgHs-
+   bFqGAmdIYnyccS9MyJp5uQYUAWgLiMtuUVyDoZgiCVQ5hG2kM9ZQEI52FzxKsSlyS-NJh
+   nVYBJ0voQ_IhjtqqxyXSezVh2pazKS8h7UmA5bQec7GhKgkFo3qc2b8lbi2OciDMW0-sh
+   qNN5T4iKjJHNGHG4kyDIFZJ4jkADS1mjUxBSGxIhDmMPGmFL_ViiAJERkplBpRGCnwJXk
+   COp-FS74KtzcaeSl0BvfPwDTTckD1XA-DERMTlAfcI5WKg9UlPGkmuxmwM9_YhiYRqvjz
+   haOnly3pTBzjaI8vew2ScPJzl5YEJ68_NCQVt1ScSTC0N-WiaztaGn63y4pbRgDyp8fnm
+   PnXPJkQMJ60JpwqgOYpS4C9PEhvYybbzCS9BJrbSPTWBWk7IbCuhpRqA35niqujW8qkmi
+   U0ICYELKEgsf0YyuhshpfzbGgCiPO1p17UlZ8Au60zN3UyfG5ECoEwEH7aQVm6kxJPYAn
+   3hV6_Q_yjksUccs6LWDNfLB9sWC_JhucHSSb6q4ZIZSYUt2wqy3YzWb7LWimChVA7d8Ts
+   MNiolYnQN53uF3MQY-MrsL1mRvyvDJT2FbqVIdNNeiF-kG4tawliUIZBcU-
+   MudDVaI28gBXHjEz9mgAMq39cQbf8vIMyFbEgLEjslEsjRsS-p-LveVdvOZ5xxKDiaZ6e
+   NKb7dP2Bcq_ENOIJJUm7JKvqCtL7d0l6IDobWIE0MeuveWYQp99KmCxznIYdRkBFwn53T
+   OMPlWeemyxWJ5o-Wr2-ArGQF5bjXKxoWP0yxJR-RLalJYXlQTgCTMC2YkDElLMVlwjOZf
+   TluCGVeJMni1tQoTwdQQJYdxjtmRkRhbmRG5dnMkZXyV1xEGAClQxmWUYGqp0sp9LRmzX
+   2aPesGYZnxplKF6g7tSiMaySFRTIWVkz9SHVDm3tkGdpLeAv2RoX4dfDpBy_gWM9DIjJe
+   ZzFjk5HAwjEUc3hHO59lBKSyyqipAiCIDIgjZeShpc0jK7D_uv6IFIs9Up0ztay_ZyMuj
+   Kq7qvZOZE-sKYrFuS9TuFhmlKvSgmefOhpOY9SYA4OHd8Rkcoqxa4iwUQ1tUCHJp0pmWs
+   6Hg6MiQBzUJABKiTMRB7xmOyegI2AIqLU-cJz5wluiAk1mKdc8GPf-
+   EnVoixzjyZJit5ALC3-oMwoSyAHelKsevM6Tw44CUKYZuQf2sjYYuud5ZaDVMZP-RBp9l
+   UADaMxdSyccQdBSdXKQaJHQURE3mOzLTPKolNaKOUBhOiLQBrz2FGPSdPOZeHYlK0yFdu
+   ETSmgBUq7hqJ0YqNeFlbpOEqMASh2YNFQWvAe3AASVaXTEEEBskyT5xTpfmvuvg6zXNln
+   TOGJCc7ctRU3kgFm4jJ0VOSYgWztPYRQyeEiZJ4-GuT_namjpeno5puxpXKpfSuSDl9gg
+   cRmxFgpGxIz_EfRty6ycKKL8TFWzNPOCG2IHRwOjWY0fOQy2NJnHIG9OAYvJxgMqRgxhl
+   mXVSo0SBGTiOXWcOlYsiUXKG-
+   6UXKuIKVmfWHd2LEc4QaXSEN66cg7zlS94p3pigcHJm5mfaH9FxC1Lx53dt-3kupGTsdC
+   6JwjXg95XAg4xTIm5HFpBUJ84dF9dp6cWuRGQIUtVeDOjROaiMNJus1TXpzKFKZfzsT1c
+   xXmnusptSVeDGVAKIWaDidbqlwAhQxf_k_yrN8RugGIUnFOgBngWNQKtwHbKBxa9o8ZLQ
+   TL7IwZYrHFwhMMWEhd0uevdoP3HJeSAt67eQDeswqsFpjHQiMB6pFvmp198fBALl07Aco
+   4Zp9RvwXm_F71VNIudl3pVGGUQaPHDVcQGgJuPJagxAHnqJ9aFCe4cwegEYz18pxvyaSO
+   Cwpayd9ntc-SmBNyHGUV3wGslGxwFdLCYUe8FmWYdM0H_layVlFxhQEE1tdrRdJ14Ixoz
+   tZ1Iteh4TCtwxlcebDXqSWywKFSxxvdWViUoG_zoiO3tN24DSOQ2Yym_AffUmsmDlmf-M
+   5kvl5-vo4_fi5jLqqN6mKHgzL5LhB0klnSUSc25IbpAdtBfb0H7JFkNDtLENdahqJ4Gk"
+   }
+
+4.1.2.  privateKeyJwk
+
+   { "kty": "OKP", "lat": "Kyber-1024", "x": "b4AVk7DIDNlgpquGZJgHs-
+   bFqGAmdIYnyccS9MyJp5uQYUAWgLiMtuUVyDoZgiCVQ5hG2kM9ZQEI52FzxKsSlyS-NJh
+   nVYBJ0voQ_IhjtqqxyXSezVh2pazKS8h7UmA5bQec7GhKgkFo3qc2b8lbi2OciDMW0-sh
+   qNN5T4iKjJHNGHG4kyDIFZJ4jkADS1mjUxBSGxIhDmMPGmFL_ViiAJERkplBpRGCnwJXk
+   COp-FS74KtzcaeSl0BvfPwDTTckD1XA-DERMTlAfcI5WKg9UlPGkmuxmwM9_YhiYRqvjz
+   haOnly3pTBzjaI8vew2ScPJzl5YEJ68_NCQVt1ScSTC0N-WiaztaGn63y4pbRgDyp8fnm
+   PnXPJkQMJ60JpwqgOYpS4C9PEhvYybbzCS9BJrbSPTWBWk7IbCuhpRqA35niqujW8qkmi
+   U0ICYELKEgsf0YyuhshpfzbGgCiPO1p17UlZ8Au60zN3UyfG5ECoEwEH7aQVm6kxJPYAn
+   3hV6_Q_yjksUccs6LWDNfLB9sWC_JhucHSSb6q4ZIZSYUt2wqy3YzWb7LWimChVA7d8Ts
+   MNiolYnQN53uF3MQY-MrsL1mRvyvDJT2FbqVIdNNeiF-kG4tawliUIZBcU-
+   MudDVaI28gBXHjEz9mgAMq39cQbf8vIMyFbEgLEjslEsjRsS-p-LveVdvOZ5xxKDiaZ6e
+   NKb7dP2Bcq_ENOIJJUm7JKvqCtL7d0l6IDobWIE0MeuveWYQp99KmCxznIYdRkBFwn53T
+   OMPlWeemyxWJ5o-Wr2-ArGQF5bjXKxoWP0yxJR-RLalJYXlQTgCTMC2YkDElLMVlwjOZf
+   TluCGVeJMni1tQoTwdQQJYdxjtmRkRhbmRG5dnMkZXyV1xEGAClQxmWUYGqp0sp9LRmzX
+   2aPesGYZnxplKF6g7tSiMaySFRTIWVkz9SHVDm3tkGdpLeAv2RoX4dfDpBy_gWM9DIjJe
+   ZzFjk5HAwjEUc3hHO59lBKSyyqipAiCIDIgjZeShpc0jK7D_uv6IFIs9Up0ztay_ZyMuj
+   Kq7qvZOZE-sKYrFuS9TuFhmlKvSgmefOhpOY9SYA4OHd8Rkcoqxa4iwUQ1tUCHJp0pmWs
+   6Hg6MiQBzUJABKiTMRB7xmOyegI2AIqLU-cJz5wluiAk1mKdc8GPf-
+   EnVoixzjyZJit5ALC3-oMwoSyAHelKsevM6Tw44CUKYZuQf2sjYYuud5ZaDVMZP-RBp9l
+   UADaMxdSyccQdBSdXKQaJHQURE3mOzLTPKolNaKOUBhOiLQBrz2FGPSdPOZeHYlK0yFdu
+   ETSmgBUq7hqJ0YqNeFlbpOEqMASh2YNFQWvAe3AASVaXTEEEBskyT5xTpfmvuvg6zXNln
+   TOGJCc7ctRU3kgFm4jJ0VOSYgWztPYRQyeEiZJ4-GuT_namjpeno5puxpXKpfSuSDl9gg
+   cRmxFgpGxIz_EfRty6ycKKL8TFWzNPOCG2IHRwOjWY0fOQy2NJnHIG9OAYvJxgMqRgxhl
+   mXVSo0SBGTiOXWcOlYsiUXKG-
+   6UXKuIKVmfWHd2LEc4QaXSEN66cg7zlS94p3pigcHJm5mfaH9FxC1Lx53dt-3kupGTsdC
+   6JwjXg95XAg4xTIm5HFpBUJ84dF9dp6cWuRGQIUtVeDOjROaiMNJus1TXpzKFKZfzsT1c
+   xXmnusptSVeDGVAKIWaDidbqlwAhQxf_k_yrN8RugGIUnFOgBngWNQKtwHbKBxa9o8ZLQ
+   TL7IwZYrHFwhMMWEhd0uevdoP3HJeSAt67eQDeswqsFpjHQiMB6pFvmp198fBALl07Aco
+   4Zp9RvwXm_F71VNIudl3pVGGUQaPHDVcQGgJuPJagxAHnqJ9aFCe4cwegEYz18pxvyaSO
+   Cwpayd9ntc-SmBNyHGUV3wGslGxwFdLCYUe8FmWYdM0H_layVlFxhQEE1tdrRdJ14Ixoz
+   tZ1Iteh4TCtwxlcebDXqSWywKFSxxvdWViUoG_zoiO3tN24DSOQ2Yym_AffUmsmDlmf-M
+   5kvl5-
+   vo4_fi5jLqqN6mKHgzL5LhB0klnSUSc25IbpAdtBfb0H7JFkNDtLENdahqJ4Gk", "d":
+   "9ONZw0kTTNAzAtq5zrgWfDxClQjJLKQClRR0wwlWkGrA8CufbqxBRoyWKbLJM3HCsgqZ
+   zGIyp4sZe9IwYIkDpGFuKLp5aOACQjPPMrFVJfkC9IuUcIyLt0RAShU9USNPFBKKGUqEW
+   uC3i3xRwWsvwMt41ixUV9qk5GRUUVYabPsaSyuRgmss23qaScZ_InOqsGRewHlq5SIAyn
+   qhC2kH7OFxvNYSvSFYQfBPOzJR9BWWoOBP24ibEAeHg2Igx7LL3OS9zjI3p5fJOYWKZVx
+   tpPaqkCxfAEa9RdY3nxcQMfmJ0CkBtwe0XEG4qoS6TEJ0EcYKO9RwyiRX_MCFXOmXcKa5
+   D6E6h8ZnxFBEJ-l2EmBeUPqEO1JcNvKtNzkJ67vCOGFgAPueLqmDEmNMjPE3UbYAkwpDo
+   lKK_UtowjhrgYd9eOGv7OXE-TanQNkjOSymBpMVw2a0I0hnG0oXDWPA-bfPJnsSbjUg2p
+   Ud6hRntnJDZQkBdHU6-
+   HC8RKc_yZtyBhwtvIkkwqih4UI9bNx3tWMObYFcc6qr1SWVNaB3CxmhN3ROheQFOXpKrY
+   LDR6sulLzJkWBu43i24SEAiMpY1KYFMUGEz2ttMnTObZZT_4caLeFWBanC7oG8WIJEH9N
+   q4YC_jgQEhUVL1ehWOTS4L2FeLMEdeIF8IAOxP0PNCDscUKmEPEOCjyhtZEmgm6yfRSmq
+   p8YH8rql2UNeq_S8DHZE2uKinpsVemjD4HVBQybME3h9mbZHHJBw5WKoWeog_DuEvSMlx
+   ikgu0qMW_BJIjkTzORcFsTEm0GOH7oB1-Odn4BUdyWqCqjJAJIW1qG5dbE6XtOhUXwJcD
+   BwPaCN8KVp_pcRlvR38RMuYANJu2AqhkN4Jwd2tKE2mXQvczNTMSavEOhw9smJRHMZeyh
+   2P7gz_oDDmKpLGSCo8bFWT0Mu-3Zdfcg8WBuhPzCqvJpGq1g_yPmQciXBVMkLjMKO1xQN
+   WdI3UBkhRyRNesyTJ3VchbzKLxuQdwKY0-lRdouOxDJCW3gPjhjJH6klQ_Y0g3kb_5cYC
+   gcLe1CwTTJyDDLNxaiB6sUYCcK7kegwM6gKbFEcOoqdHNiDIYV_LcAb0FQ4PxmTdZUF79
+   ErwBJ7k-Fb9WqhAEPDqaCl7oM_wAuH8whn0sZCLTY5t7ec2bdaUOAo-nxvdquilYIHnTN
+   NvhB1dZWnqbK4aXDE24U8ZBViBBNH_zUVBVA7hDZtF4sfPlN22wsUyPwU94Ec3yFKJoEd
+   XLJ0BmgkWLlWhtrCV3Z22Oa6l1WupyVYL-K3pLqrTCphJoRatwtlnYYUoLu8yad2QlO-
+   5ccyyZIlbsleHLNkpgRJdziXDlYHCRhBrTHAxheDTjOGJ7catGAyRzrFpORdzUoKk-
+   klBsjGATdZjgUT-KmLhZyk4IK82-ii_6Bkn6dTtvQGvCQk5GBEBPsuZxsGlYR0N-c70VM
+   8CeNHFrkWrxie4nwZdCIsp0IVKpYytVoKiPtrvpq2e0gwfTwIoQVE98w3I5WhyJmOYHAu
+   4cTGTMMFuTEfD7FeNUYD2QLMj1l5kSmNejZBVrETKcsmG2xyd8EjmItXD6F8_OsjfYwPu
+   kcYNakxcCMoZHl5esa3fhe2s9LJGJLEQmGN-tMZHNN5cdkxCtPBywtSwKdvtXwRonsRhl
+   yNhamt_8ZC8sSbJ0pRsmxn9EU4WUUuypxXP8mhCbXHGgqJ3MchPFsfb9tA_UJt5SVfNHJ
+   fjplbJDUrpycaM7y6T4ZiEEq6y6Bh-
+   nGZWhOZYxJ0j2tU9pipPNGRSOahX4BCkCcdxge8i6tC_2SYKGqmq-uhjobKsEkMYViywU
+   ZgTHlV79I8JeYCHCCUNPzBWdSiGkaT30NHTEWpV8KrVPldLYyEOCA_JgKe-XqKn2ZIgKd
+   9peRVu_DB5Mu9UaU0NrcRQEgpc9RV_PJLIyuNqFXMCHqj7GF0qTOHvMRdwfgE5HXIdwFK
+   fytblOBM3hxKJskT_KpxBRE9WneNwnJbH4wmshwfiQDKu3SaTYuyieNy4am6fxa1PngrN
+   WhMb4AVk7DIDNlgpquGZJgHs-
+   bFqGAmdIYnyccS9MyJp5uQYUAWgLiMtuUVyDoZgiCVQ5hG2kM9ZQEI52FzxKsSlyS-NJh
+   nVYBJ0voQ_IhjtqqxyXSezVh2pazKS8h7UmA5bQec7GhKgkFo3qc2b8lbi2OciDMW0-sh
+   qNN5T4iKjJHNGHG4kyDIFZJ4jkADS1mjUxBSGxIhDmMPGmFL_ViiAJERkplBpRGCnwJXk
+   COp-FS74KtzcaeSl0BvfPwDTTckD1XA-DERMTlAfcI5WKg9UlPGkmuxmwM9_YhiYRqvjz
+   haOnly3pTBzjaI8vew2ScPJzl5YEJ68_NCQVt1ScSTC0N-WiaztaGn63y4pbRgDyp8fnm
+   PnXPJkQMJ60JpwqgOYpS4C9PEhvYybbzCS9BJrbSPTWBWk7IbCuhpRqA35niqujW8qkmi
+   U0ICYELKEgsf0YyuhshpfzbGgCiPO1p17UlZ8Au60zN3UyfG5ECoEwEH7aQVm6kxJPYAn
+   3hV6_Q_yjksUccs6LWDNfLB9sWC_JhucHSSb6q4ZIZSYUt2wqy3YzWb7LWimChVA7d8Ts
+   MNiolYnQN53uF3MQY-MrsL1mRvyvDJT2FbqVIdNNeiF-kG4tawliUIZBcU-
+   MudDVaI28gBXHjEz9mgAMq39cQbf8vIMyFbEgLEjslEsjRsS-p-LveVdvOZ5xxKDiaZ6e
+   NKb7dP2Bcq_ENOIJJUm7JKvqCtL7d0l6IDobWIE0MeuveWYQp99KmCxznIYdRkBFwn53T
+   OMPlWeemyxWJ5o-Wr2-ArGQF5bjXKxoWP0yxJR-RLalJYXlQTgCTMC2YkDElLMVlwjOZf
+   TluCGVeJMni1tQoTwdQQJYdxjtmRkRhbmRG5dnMkZXyV1xEGAClQxmWUYGqp0sp9LRmzX
+   2aPesGYZnxplKF6g7tSiMaySFRTIWVkz9SHVDm3tkGdpLeAv2RoX4dfDpBy_gWM9DIjJe
+   ZzFjk5HAwjEUc3hHO59lBKSyyqipAiCIDIgjZeShpc0jK7D_uv6IFIs9Up0ztay_ZyMuj
+   Kq7qvZOZE-sKYrFuS9TuFhmlKvSgmefOhpOY9SYA4OHd8Rkcoqxa4iwUQ1tUCHJp0pmWs
+   6Hg6MiQBzUJABKiTMRB7xmOyegI2AIqLU-cJz5wluiAk1mKdc8GPf-
+   EnVoixzjyZJit5ALC3-oMwoSyAHelKsevM6Tw44CUKYZuQf2sjYYuud5ZaDVMZP-RBp9l
+   UADaMxdSyccQdBSdXKQaJHQURE3mOzLTPKolNaKOUBhOiLQBrz2FGPSdPOZeHYlK0yFdu
+   ETSmgBUq7hqJ0YqNeFlbpOEqMASh2YNFQWvAe3AASVaXTEEEBskyT5xTpfmvuvg6zXNln
+   TOGJCc7ctRU3kgFm4jJ0VOSYgWztPYRQyeEiZJ4-GuT_namjpeno5puxpXKpfSuSDl9gg
+   cRmxFgpGxIz_EfRty6ycKKL8TFWzNPOCG2IHRwOjWY0fOQy2NJnHIG9OAYvJxgMqRgxhl
+   mXVSo0SBGTiOXWcOlYsiUXKG-
+   6UXKuIKVmfWHd2LEc4QaXSEN66cg7zlS94p3pigcHJm5mfaH9FxC1Lx53dt-3kupGTsdC
+   6JwjXg95XAg4xTIm5HFpBUJ84dF9dp6cWuRGQIUtVeDOjROaiMNJus1TXpzKFKZfzsT1c
+   xXmnusptSVeDGVAKIWaDidbqlwAhQxf_k_yrN8RugGIUnFOgBngWNQKtwHbKBxa9o8ZLQ
+   TL7IwZYrHFwhMMWEhd0uevdoP3HJeSAt67eQDeswqsFpjHQiMB6pFvmp198fBALl07Aco
+   4Zp9RvwXm_F71VNIudl3pVGGUQaPHDVcQGgJuPJagxAHnqJ9aFCe4cwegEYz18pxvyaSO
+   Cwpayd9ntc-SmBNyHGUV3wGslGxwFdLCYUe8FmWYdM0H_layVlFxhQEE1tdrRdJ14Ixoz
+   tZ1Iteh4TCtwxlcebDXqSWywKFSxxvdWViUoG_zoiO3tN24DSOQ2Yym_AffUmsmDlmf-
+   M5kvl5-vo4_fi5jLqqN6mKHgzL5LhB0klnSUSc25IbpAdtBfb0H7JFkNDtLENdahqJ4Gn
+   QFZ0h6PgWg4k3D-43exHsYWth5wuYvObgWnSKIqysOrJmGHSF-mIYCzMh3pvATP-
+   F3YhEa7DBGvG7TfkIFPxp" }
+
+4.1.3.  cyphertext
+
+   aJTgeAUEN-S3SIOgdXBYuufhzcaqtlsNYifzUw3birXuYSlOad-
+   RDr6eWz08KvQi1ZVT0oe-qM0rcBAOLAHzZKgzJ3F5fERVjfFJ-ODcq-urEEns6FiX8tWg
+   Z5NUARrKibFU9MoJjBwO5R5IjUFlCwUxgm6qLIhw7p5WxpIJDxFu_8pUecn4_LtjSwNUh
+   fZHJKtjtpFVEolH7Ap9fKq_o79N_iAAt5j4jjRPk8Am3blRj3NbkZOkBHvTpSB6fNIC0Z
+   DItavN8yPVXip1t5xaVjlzqZjL99voFTKHQ16TRj6W-fcE6AbqAT2AlJYIAd2MOKaHDiC
+   oImzGQlFm22JpVC0fwVPynAgPGmD6VEvci0TRoT6qR5nFuR_QO6GVR3gQzdNm2k-IeafT
+   _4rUqRdpg4Xgnh6Fg3PSJtzleLdJq7gVMpxSYTcO69n957l5EPYYl2Q_A4yQGyCvV5dXy
+   O5Do62JgHiBFHwcWbDGk5nQReMfakIfW3TznTdne1jat1c7GcHm_om3t4BhbSE_SX3YW5
+   y_dXU98ODiJ_iLJ6VC8d_g6wj5ELizYqVIPosKaHqxiaaGp6ruLxHm45PioyodFp_Pn95
+   SqdroCri9Lo5qZl0q5M6pvcvPhe0MopfiV3XWAORAP9MPcZUldn3zlhMX74KR1P4_y66K
+   HUKy3B7R5VW-PZYTqrZH5VSZTotEkEf3WxTZgZHpEh6H-
+   VwADccLlqOq_lUdoISXwgonhJ0x42tkfPQp-akuWI6h_DUSpDRXuojP8bXHEpp59od48q
+   FSBraLtoXiqsZL2PRYKZxNtDj6em1dEPao_FuE_Y2YalqOS45lV9trGw9Iu5dRarCqxbm
+   Zh0mlkLZp5JO7ssPq4Gryx0UjHxQdbOQbm0ik3rNlM6DZg26byDKH8ecuB_jyyZbjhiDT
+   ewSjqXuNP3_5-ft9z54oCMyJ3fmoRxL6Jh1CopsPfRXysYUF1f1KHVeY3jvxBxK-
+   dtbNDW-bxdNzd19RZL3r5coB18cj4H-FQeP--
+   EMklwJmHUCBL4XlFG6pi5KlFvZG55YHPehE2UMemc0bdhTFNiG4cJkO4ifp9R-SVS0cUJ
+   AnhJQAdWPC0CwvbXO0Cidf1PLWQyIPQB7HIXLKI5DepSAPvofechafaLqHVTxm1q1tjLh
+   GhNrbEI8Xk4mXqcBI7a99PMWjpknkeE-aTP3g8UFWpYJBqAFdLMkUNH4sBCrvBk---
+   OYKqDvZdlYJMttFu39fByjVaRArv6P1I7QN_FQZULqWFZXyYYEcv89vy-
+   GsK2Uohyh8x1l2vs-2mzsDW-wcQNt-GqWwfFGVXmGjBlOrngWDcufx-RDfXbFGKPIy9vB
+   XVb1BQRVU5m1SvAnVCarzRJVFfidbgIXSvL8xt7E3O9nnG0UgWpd86tlt9ic3to725y1n
+   fXx7sfmepHULhpKx1oF2XJDk9wRnCck4IE9P80oSL4YFZv9BBDR_Ho-OZ9jtilYWqJMSk
+   SvjqY00wxO1XJHPTCqLI7BkdtXXzudcW8Ba6mjowiSxlNGql356jpOEn-
+   aM0bJbyNO4Y58r80pOdh6e9GoA3OdPOS9Di_TiUrtj267TFi9jnjBpKRX1J-
+   nrWpdasKyqUEz-4ovhsrvWIQgztzX_3XV4Up_x9bWlXby7BLcg3xivusbwYzH3IZvqPlF
+   jgE1FhRaJ9Hk5fGiIZ0jYvHDbqogFOL2-fqprdsQpOHo8YaQboaioQqitC1NNRUXYDllt
+   DBrdxvnVYekq1na24lTvuFTjJwJ6LnNk7gd2AL2oA3th50jJXw2OhpRCEBusV5dTZAMY1
+   nfHqdKXHJmyDXqT_3DpjDebRwoQGf3wS2Qs-InZUW7ZD4iPEIAeSOJ0zbonDTDi5-
+   eU7lfQu9ynmC5vj5BvSwFe5AwYCYpyPxijfVhoXuXdgo34f4OcFWV81tMuf1g8YNjcO9n
+   s7589xl20Hdjt77u5K3-
+   EEFzk5INMgTJHmBkHgnnAWEHp2_nB3d3PwwLnp_7iIW5D3RLn-
+   YtzhmF157RZHFhz3jNRHncC3OB5vu3VGZAcs1rAJF5IFTdaN-
+   8GlqnwyNOTs0sXhKz7qQU
+
+4.1.4.  secret
+
+   ppwHfcCenbXiVKSWwfDOWbcz6i-hjcrBQLA1fqKotNE
+
+5.  IANA Considerations
+
+5.1.  JSON Web Key Lattice Registry
+
+   This specification establishes the IANA "JSON Web Key Lattice"
+   registry for values of the JWK "lat" (algorithm) parameters.
+
+   This section establishes the IANA "JSON Web Key Lattice" registry for
+   JWK "lat" member values.  The registry records the lattice name,
+   implementation requirements, and a reference to the specification
+   that defines it.  This specification registers the parameter names
+   defined in Section 2.1.2.
+
+   The implementation requirements of a lattice may be changed over time
+   as the cryptographic landscape evolves, for instance, to change the
+   status of a lattice to Deprecated or to change the status of a
+   lattice from Optional to Recommended+ or Required.  Changes of
+   implementation requirements are only permitted on a Specification
+   Required basis after review by the Designated Experts, with the new
+   specification defining the revised implementation requirements level.
+
+5.1.1.  Registration Template
+
+   Lattice Name:  The name requested (e.g., "Kyber-768").  Because a
+      core goal of this specification is for the resulting
+      representations to be compact, it is RECOMMENDED that the name be
+      short -- not to exceed 8 characters without a compelling reason to
+      do so.  This name is case sensitive.  Names may not match other
+      registered names in a case-insensitive manner unless the
+      Designated Experts state that there is a compelling reason to
+      allow an exception.
+
+   Lattice Description:  Brief description of the lattice (e.g.,
+      "Kyber-768 Lattice").
+
+   JOSE Implementation Requirements:  The lattice implementation
+      requirements for JWS and JWE, which must be one the words
+      Required, Recommended, Optional, Deprecated, or Prohibited.
+      Optionally, the word can be followed by a "+" or "-".  The use of
+      "+" indicates that the requirement strength is likely to be
+      increased in a future version of the specification.  The use of
+      "-" indicates that the requirement strength is likely to be
+      decreased in a future version of the specification.
+
+   Change Controller:  For Standards Track RFCs, list "IESG".  For
+      others, give the name of the responsible party.  Other details
+      (e.g., postal address, email address, home page URI) may also be
+      included.
+
+   Specification Document(s):  Reference to the document or documents
+      that specify the parameter, preferably including URIs that can be
+      used to retrieve copies of the documents.  An indication of the
+      relevant sections may also be included but is not required.
+
+5.1.2.  Initial Registry Contents
+
+   Kyber-768
+
+   *  Lattice Name: Kyber-768
+
+   *  Value: TBD (16 requested)
+
+   *  Key Type: OKP
+
+   *  Lattice Description: TODO
+
+   *  JOSE Implementation Requirements: Optional
+
+   *  Change Controller: IESG
+
+   *  Specification Document(s): Section 2.1.2
+
+   *  Recommended: Yes
+
+6.  References
+
+6.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
+              Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
+              2015, <https://www.rfc-editor.org/rfc/rfc7515>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+6.2.  Informative References
+
+   [I-D.draft-cfrg-schwabe-kyber]
+              Schwabe, P. and B. Westerbaan, "Kyber Post-Quantum KEM",
+              Work in Progress, Internet-Draft, draft-cfrg-schwabe-
+              kyber-01, 23 September 2022,
+              <https://datatracker.ietf.org/doc/html/draft-cfrg-schwabe-
+              kyber-01>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Orie Steele
+   Transmute
+   Email: orie@transmute.industries
