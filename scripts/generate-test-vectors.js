@@ -103,10 +103,10 @@ const writeMarkdown = (outputFilePath, outputFileContent)=>{
 
   // console.log({publicKeyJwk, privateKeyJwk, cyphertext, secret})
   markdown += `## ${publicKeyJwk.kty} ${publicKeyJwk.lat}\n\n`
-  markdown += "### publicKeyJwk\n```\n" + wordWrap(JSON.stringify(publicKeyJwk, null, 2)) +"\n```\n\n"
-  markdown += "### privateKeyJwk\n```\n" + wordWrap(JSON.stringify(privateKeyJwk, null, 2)) +"\n```\n\n"
-  markdown += "### cyphertext\n```\n" + wordWrap(cyphertext) +"\n```\n\n"
-  markdown += "### secret\n```\n" + wordWrap(secret) +"\n```\n\n"
+  markdown += "### publicKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(publicKeyJwk, null, 2)) +"\n~~~\n\n"
+  markdown += "### privateKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(privateKeyJwk, null, 2)) +"\n~~~\n\n"
+  markdown += "### cyphertext\n~~~\n" + wordWrap(cyphertext) +"\n~~~\n\n"
+  markdown += "### secret\n~~~\n" + wordWrap(secret) +"\n~~~\n\n"
   markdown += "\n"
 
   writeMarkdown(`../draft-steele-cose-kyber-test-vectors.md`, markdown)
