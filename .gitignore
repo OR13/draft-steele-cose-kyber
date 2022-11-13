@@ -21,3 +21,6 @@ draft-steele-cose-kyber.xml
 package-lock.json
 report.xml
 !requirements.txt
+
+
+*-test-vectors.md

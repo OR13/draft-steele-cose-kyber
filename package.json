@@ -1,0 +1,25 @@
+{
+  "name": "draft-steele-cose-kyber",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node ./scripts/generate-test-vectors.js",
+    "shove": "git add -A ; git commit -m ':rainbow::rocket:' ; git push origin main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OR13/draft-steele-cose-kyber.git"
+  },
+  "author": "Orie Steele",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/OR13/draft-steele-cose-kyber/issues"
+  },
+  "homepage": "https://github.com/OR13/draft-steele-cose-kyber#readme",
+  "dependencies": {
+    "base64url": "^3.0.1",
+    "kyber-crystals": "^1.0.4"
+  }
+}
