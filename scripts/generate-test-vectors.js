@@ -58,27 +58,29 @@ function testWhite(x) {
 
 // rfc8792
 function wordWrap(str, maxWidth = 68) {
-  var newLineStr = "\\\n"; done = false; res = '';
-  while (str.length > maxWidth) {                 
-      found = false;
-      // Inserts new line at first whitespace of the line
-      for (i = maxWidth - 1; i >= 0; i--) {
-          if (testWhite(str.charAt(i))) {
-              res = res + [str.slice(0, i), newLineStr].join('');
-              str =  str.slice(i + 1);
-              found = true;
-              break;
-          }
-      }
-      // Inserts new line at maxWidth position, the word is too long to wrap
-      if (!found) {
-          res += [str.slice(0, maxWidth), newLineStr].join('');
-          str = "\\" + str.slice(maxWidth);
-      }
+  return str;
 
-  }
+  // var newLineStr = "\\\n"; done = false; res = '';
+  // while (str.length > maxWidth) {                 
+  //     found = false;
+  //     // Inserts new line at first whitespace of the line
+  //     for (i = maxWidth - 1; i >= 0; i--) {
+  //         if (testWhite(str.charAt(i))) {
+  //             res = res + [str.slice(0, i), newLineStr].join('');
+  //             str =  str.slice(i + 1);
+  //             found = true;
+  //             break;
+  //         }
+  //     }
+  //     // Inserts new line at maxWidth position, the word is too long to wrap
+  //     if (!found) {
+  //         res += [str.slice(0, maxWidth), newLineStr].join('');
+  //         str = "\\" + str.slice(maxWidth);
+  //     }
 
-  return res + str;
+  // }
+
+  // return res + str;
 }
 
 
@@ -102,9 +104,9 @@ const writeMarkdown = (outputFilePath, outputFileContent)=>{
   // console.log({publicKeyJwk, privateKeyJwk, cyphertext, secret})
   markdown += `## ${publicKeyJwk.kty} ${publicKeyJwk.lat}\n\n`
   markdown += "### publicKeyJwk\n```\n" + wordWrap(JSON.stringify(publicKeyJwk, null, 2)) +"\n```\n\n"
-  markdown += "### privateKeyJwk\n```json\n" + wordWrap(JSON.stringify(privateKeyJwk, null, 2)) +"\n```\n\n"
-  markdown += "### cyphertext\n```text\n" + wordWrap(cyphertext) +"\n```\n\n"
-  markdown += "### secret\n```text\n" + wordWrap(secret) +"\n```\n\n"
+  markdown += "### privateKeyJwk\n```\n" + wordWrap(JSON.stringify(privateKeyJwk, null, 2)) +"\n```\n\n"
+  markdown += "### cyphertext\n```\n" + wordWrap(cyphertext) +"\n```\n\n"
+  markdown += "### secret\n```\n" + wordWrap(secret) +"\n```\n\n"
   markdown += "\n"
 
   writeMarkdown(`../draft-steele-cose-kyber-test-vectors.md`, markdown)
