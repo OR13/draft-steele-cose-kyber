@@ -7,8 +7,8 @@ const path = require('path');
 
 const keyPairToJwk = (publicKey, privateKey)=>{
   const jwk = {
-    kty: 'OKP',
-    lat: 'Kyber-1024',
+    kty: 'Kyber',
+    alg: 'Kyber-1024',
     x: base64url.encode(Buffer.from(publicKey))
   }
   if (privateKey){
@@ -100,9 +100,9 @@ const writeMarkdown = (outputFilePath, outputFileContent)=>{
   let markdown = ''
 
   // console.log({publicKeyJwk, privateKeyJwk, cyphertext, secret})
-  markdown += `## ${publicKeyJwk.kty} ${publicKeyJwk.lat}\n\n`
-  markdown += "### publicKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(publicKeyJwk, null, 2)) +"\n~~~\n\n"
-  markdown += "### privateKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(privateKeyJwk, null, 2)) +"\n~~~\n\n"
+  markdown += `## ${publicKeyJwk.kty} ${publicKeyJwk.alg}\n\n`
+  markdown += "### publicKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(publicKeyJwk)) +"\n~~~\n\n"
+  markdown += "### privateKeyJwk\n~~~ json\n" + wordWrap(JSON.stringify(privateKeyJwk)) +"\n~~~\n\n"
   markdown += "### cyphertext\n~~~\n" + wordWrap(cyphertext) +"\n~~~\n\n"
   markdown += "### secret\n~~~\n" + wordWrap(secret) +"\n~~~\n\n"
   markdown += "\n"
