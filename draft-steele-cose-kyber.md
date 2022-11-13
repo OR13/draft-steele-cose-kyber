@@ -8,14 +8,14 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Security"
+workgroup: "CBOR Object Signing and Encryption"
 keyword:
  - COSE
  - JOSE
 venue:
-  type: non-WG
-  mail: cose@ietf.org
+  type: "Working Group"
+  mail: "cose@ietf.org"
 
 author:
  -
