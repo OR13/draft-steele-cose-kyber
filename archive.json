@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-11-15T00:15:24.764878+00:00",
+  "timestamp": "2022-11-29T00:14:47.909364+00:00",
   "repo": "OR13/draft-steele-cose-kyber",
   "labels": [
     {
@@ -63,6 +63,22 @@
       "body": "What values for `kty` and `alg` are relevant to kyber?\r\n\r\n```json\r\n{\"kty\":\"LWE\",\"alg\":\"Kyber-1024\",\"x\":\"HqVMK2Oc...\"}\r\n```",
       "createdAt": "2022-11-13T19:11:18Z",
       "updatedAt": "2022-11-13T20:51:45Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOIbV8ec5Xaen2",
+      "title": "Add alg:HPKE example",
+      "url": "https://github.com/OR13/draft-steele-cose-kyber/issues/4",
+      "state": "OPEN",
+      "author": "OR13",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- https://mailarchive.ietf.org/arch/msg/cose/MIFTZ1S8ql53qV-5rlt4ixalx44/\r\n- https://github.com/cisco/go-hpke/pull/60\r\n\r\n- https://mailarchive.ietf.org/arch/msg/cose/r4nzABx8F3RHQ_Kb1jYisBm5l3M/",
+      "createdAt": "2022-11-28T14:47:29Z",
+      "updatedAt": "2022-11-28T14:51:11Z",
       "closedAt": null,
       "comments": []
     }
